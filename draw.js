@@ -64,15 +64,15 @@ function draw(changes_graph=false) {
 	} else {
 		draw_lines_group(loops, circle_points);
 	}
+	set_selection_options();
 	// apply coloring
 	if (colorMode == 'loop') {
-		set_colors_loop()
+		set_colors_loop();
 	} else if (colorMode == 'length') {
 		set_colors_loop_length(mod);
 	} else if (colorMode == 'segment') {
 		set_colors_line_length(circle_points);
 	} else if (colorMode == 'select') {
-		set_selection_options()
 		if (prev_sel && !changes_graph) {
 			sel.value = prev_sel;
 		}
@@ -278,16 +278,20 @@ function set_selection_options() {
 }
 
 function loop_hover_click(sender) {
-	if (document.getElementById('color').value != 'select') {
-		return;
-	}
 	var node = sender.querySelector(':hover');
 	var indexOfChild = 0;
 	while (node = node.previousSibling) {
 		if (node.nodeType === 1) { ++indexOfChild; }
 	}
 	document.getElementById('select').value = indexOfChild;
-	update_highlight();
+	let color = document.getElementById('color');
+	if (color.value == 'select') {
+		update_highlight();
+	} else {
+		color.value = 'select';
+		change_color_mode();
+		draw();
+	}
 }
 
 function update_highlight() {
