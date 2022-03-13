@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0" />
+	<title>Modulo Multiplication Visualizer</title>
+	<script type="text/javascript" src="draw.js"></script>
+	<style type="text/css">
+body { margin: 10px 0; font-family: Helvetica, sans-serif; }
+input[type=number] { width: 4em; }
+header>div { display: inline-block; white-space: nowrap; margin: .2em .5em; }
+footer { text-align: center; font-size: small; }
+</style>
+</head>
+<body>
+	<header>
+		<div>
+			<label for="multiply">Multiplier:</label>
+			<input id="multiply" type="number" name="multiply" value="2" min="2" onchange="draw(true)">
+		</div>
+		<div>
+			<label for="modulo">Modulo:</label>
+			<input id="modulo" type="number" name="modulo" value="9" min="2" onchange="draw(true)">
+		</div>
+		<div>
+			<label for="fontsize">Font size:</label>
+			<input id="fontsize" type="number" name="fontsize" value="16" min="0" onchange="draw()">
+		</div>
+		<div>
+			<label for="linewidth">Line width:</label>
+			<select id="linewidth" name="linewidth" onchange="draw()">
+				<option value="0.125">0.125 px</option>
+				<option value="0.25">0.25 px</option>
+				<option value="0.5">0.5 px</option>
+				<option value="1">1 px</option>
+				<option value="2">2px</option>
+				<option value="4" selected>4px</option>
+			</select>
+		</div>
+		<div>
+			<label for="arrow">Arrows:</label>
+			<input id="arrow" name="arrow" type="checkbox" onchange="draw()">
+		</div>
+		<div>
+			<label for="hover">Hover:</label>
+			<input id="hover" name="hover" type="checkbox" onchange="draw()">
+		</div>
+		<div>
+			<button onclick="svg_download()">Download SVG</button>
+		</div>
+		<br>
+		<div>
+			<label for="color">Color by:</label>
+			<select id="color" name="color" onchange="change_color_mode(); draw()">
+				<option value="none">None</option>
+				<option value="loop" selected>Loop group</option>
+				<option value="length">Loop length</option>
+				<option value="segment">Line length</option>
+				<option value="select">Select</option>
+			</select>
+
+			<select id="select" name="select" onchange="update_highlight()"></select>
+		</div>
+		<div id="message"></div>
+	</header>
+
+	<main id="img"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+<style type="text/css">
+#loops>.selected { stroke: red; }
+#arrows>.selected { fill: red; }
+.hover #loops>*, .hover #arrows>* { opacity: 0.3; }
+.hover :hover, .hover .selected { opacity: 1.0 !important; }
+</style>
+<g id="bgtxt" font-family="Courier" style="letter-spacing:-.15em"></g>
+<g id="bg" fill="none" stroke="black" stroke-width="1px"></g>
+<g id="loops" fill="none" stroke="black"></g>
+<g id="arrows"></g>
+</svg>
+</main>
+
+	<footer>What is this? A coding challange, watch this <a href="https://www.youtube.com/watch?v=6ZrO90AI0c8">YouTube video</a></footer>
+</body>
+</html>
